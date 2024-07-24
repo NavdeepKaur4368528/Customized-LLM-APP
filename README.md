@@ -1,42 +1,94 @@
-# Customized-LLM-APP
+# Good Manners Assistant 🎩🍽️
 
-Building a Retrieval-Augmented Generation (RAG) bot can significantly enhance the capabilities of a language model by incorporating external knowledge to generate more accurate and contextually relevant responses. This guide will walk you through creating a simple RAG bot using Gradio and the Hugging Face APIs.
+A knowledgeable etiquette chatbot powered by Emily Post's ETIQUETTE (17th Edition) by Peggy Post.
 
-But how does RAG enhance LLM’s performance?
+## Introduction
 
-RAG improves the performance of language models by augmenting them with external documents. This method retrieves relevant documents based on the user query and combines them with the original prompt before passing them to the language model for response generation. This approach ensures that the language model can access up-to-date and domain-specific information without the need for extensive retraining.
+This project demonstrates a Retrieval-Augmented Generation (RAG) chatbot using Hugging Face's Inference API, Gradio, and FAISS for efficient similarity search. The chatbot, named "Good Manners Assistant," is designed to provide helpful advice on etiquette, social norms, and proper behavior in various situations, based on Emily Post's renowned guide to modern manners.
 
+## Features
 
+- Uses the Zephyr-7b-beta model from Hugging Face for natural language processing
+- Implements RAG to provide context-aware responses
+- Utilizes FAISS for efficient similarity search in the knowledge base
+- Provides example prompts to demonstrate the chatbot's capabilities
+- Offers a user-friendly interface powered by Gradio
 
-A common scenario of RAG helping LLM (Source)
+## Prerequisites
 
-The basic steps in RAG can be simplified as follows:
+Before you start, make sure you have the following:
 
-Input: The question to which the LLM system responds is referred to as the input. If no RAG is used, the LLM is directly used to respond to the question.
+- Python 3.6 or higher
+- A Hugging Face account (sign up at [huggingface.co](https://huggingface.co/join))
 
-Indexing: If RAG is used, then a series of related documents are indexed by chunking them first, generating embeddings of the chunks, and indexing them into a vector store. At inference, the query is also embedded in a similar way.
+## Installation
 
+1. Clone this repository:
+   ```
+   git clone https://github.com/NavdeepKaur4368528/good-manners-assistant.git
+   cd good-manners-assistant
+   ```
 
-Basic retrieval steps in RAG. (Source)
+2. Install the required packages:
+   ```
+   pip install -r requirements.txt
+   ```
 
-Retrieval: The relevant documents are obtained by comparing the query against the indexed vectors, also denoted as “Relevant Documents”.
+3. Download the PDF of Emily Post's ETIQUETTE (17th Edition) and place it in the project directory with the filename `emily_post_etiquette.pdf`.
 
-Generation: The relevant documents are combined with the original prompt as additional context. The combined text and prompt are then passed to the model for response generation which is then prepared as the final output of the system to the user.
+## Usage
 
-In the example provided, using the model directly fails to respond to the question due to a lack of knowledge of current events. On the other hand, when using RAG, the system can pull the relevant information needed for the model to answer the question appropriately. (Source)
+To run the chatbot locally:
 
-Now Let’s Build a Chatbot using RAG:
+1. Open a terminal and navigate to the project directory.
+2. Run the following command:
+   ```
+   python app.py
+   ```
+3. Open your web browser and go to the URL displayed in the terminal (usually `http://127.0.0.1:7860`).
 
-I have used Zephyr LLM model and all-MiniLM-L6-v2 sentence transformer model. This sentence-transformers model maps sentences & paragraphs to a 384 dimensional dense vector space and can be used for tasks like clustering or semantic search.
+## How It Works
 
-The all-* models were trained on all available training data (more than 1 billion training pairs) and are designed as general purpose models. The all-mpnet-base-v2 model provides the best quality, while all-MiniLM-L6-v2 is 5 times faster and still offers good quality. Toggle All models to see all evaluated original models.
+1. The chatbot loads the PDF of Emily Post's ETIQUETTE and processes it into a vector database.
+2. When a user asks a question, the system searches for relevant passages in the etiquette guide.
+3. The retrieved context is then passed to the LLM along with the user's query.
+4. The LLM generates a response based on the provided context and its training.
 
-We need the following ingredients:
+## Customization
 
-1. A PDF as your knowledgebase
+You can customize the chatbot by modifying the following in `app.py`:
 
-2. A requirements.txt file
+- Knowledge base: Replace `emily_post_etiquette.pdf` with another PDF to change the chatbot's knowledge domain.
+- System message: Edit the `system_message` variable to adjust the chatbot's behavior and tone.
+- Model: Change the `InferenceClient` to use a different model from Hugging Face.
+- Examples: Modify the `examples` list to showcase different interactions.
 
-3. An app.py file
+## Deployment
 
-4. An account on Hugging Face (See this blog to learn about building a LLM chatbot in Hugging Face)
+This project can be deployed on Hugging Face Spaces:
+
+1. Fork this repository to your GitHub account.
+2. Go to [huggingface.co/spaces](https://huggingface.co/spaces) and click "Create new Space".
+3. Choose "Gradio" as the SDK.
+4. Link your forked GitHub repository.
+5. Add your `emily_post_etiquette.pdf` file to the Space's files.
+6. Deploy and enjoy your etiquette chatbot!
+
+## Disclaimer
+
+This chatbot is based on Emily Post's Etiquette guide and is intended for general advice on good manners and social etiquette. It should not be considered as a substitute for professional advice in specific situations.
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## Acknowledgements
+
+- Emily Post's ETIQUETTE (17th Edition) by Peggy Post
+- Hugging Face for providing the Inference API
+- Gradio for the user interface framework
+- FAISS for efficient similarity search
+
+## Contact
+
+For any questions or feedback, please reach out to na4368528@alphacollege.me.
